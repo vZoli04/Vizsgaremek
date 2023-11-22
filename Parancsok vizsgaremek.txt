@@ -1,0 +1,125 @@
+Kávézó router
+
+EBEDLO vlan
+int gig0/0.10
+encap dot1q 10
+ip add 192.168.31.1 255.255.255.128
+
+BAR vlan
+int gig0/0.20
+encap dot1q 20
+ip add 192.168.31.129 255.255.255.192
+
+IRODA vlan
+int gig0/0.30
+encap dot1q 30
+ip add 192.168.31.193 255.255.255.248
+
+EBED_S switch
+vlan 10
+name EBEDLO
+vlan 20
+name BAR
+vlan 30
+name IRODA
+
+int gig0/1
+sw mo trunk
+int range fa0/1-6
+sw mo trunk
+
+vtp mode server
+vtp domain kavezo
+vtp password kave123
+vtp version 2
+
+Portvédelem
+int range f0/5-24
+sh
+int range gig0/1-2, f0/1-4
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+switchport port-security maximum 1
+
+Portösszekötés
+int range f0/1-2
+channel-group 1 mode desirable
+
+int range f0/3-4
+channel-group 2 mode desirable
+
+Feszitő fa
+spanning-tree mode rapid-pvst
+spanning-tree vlan 10,20,30 root primary
+int gig0/2 
+spanning-tree portfast
+spanning-tree bpduguard enable
+
+
+IRODA_S switch
+
+int range fa0/1-6
+sw mo trunk
+
+vtp mode client
+vtp domain kavezo
+vtp password kave123
+
+int range fa0/3-4, fa0/24
+sw mode acc
+sw acc vlan 30
+
+Portvédelem
+int range f0/7-23
+sh
+int range f0/1-6, f0/24
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+switchport port-security maximum 1
+
+Portösszekötés
+int range f0/1-2
+channel-group 1 mode desirable
+int range f0/5-6
+channel-group 3 mode desirable
+
+Feszitő fa
+spanning-tree mode rapid-pvst
+spanning-tree vlan 10,20,30 root secondary
+int range f0/3-4, f0/24 
+spanning-tree portfast
+spanning-tree bpduguard enable
+
+
+BAR_S switch
+
+int range fa0/1-6
+sw mo trunk
+
+vtp mode client
+vtp domain kavezo
+vtp password kave123
+
+int range fa0/2
+sw mode acc
+sw acc vlan 20
+
+Portvédelem
+int range f0/1, f0/7-24, gig0/1
+sh
+int range f0/2-6, gig0/2
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+switchport port-security maximum 1
+
+Portösszekötés
+int range f0/3-4
+channel-group 2 mode desirable
+int range f0/5-6
+channel-group 3 mode desirable
+
+Feszitő fa
+spanning-tree mode rapid-pvst
+int range gig0/2, f0/2 
+spanning-tree portfast
+spanning-tree bpduguard enable
