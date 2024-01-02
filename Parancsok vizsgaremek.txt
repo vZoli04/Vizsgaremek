@@ -123,3 +123,121 @@ spanning-tree mode rapid-pvst
 int range gig0/2, f0/2 
 spanning-tree portfast
 spanning-tree bpduguard enable
+
+NEW YORK HOTEL
+
+Switch Recepcio
+
+VLANOK
+vlan 11
+name RECEPCIO
+vlan 12
+name SECURITY
+vlan 21
+name HALO1
+vlan 22
+name IGAZGATOSAG
+vlan 31
+name HALO2
+
+vtp domain NYHOTEL
+vtp version 2
+vtp password NYHOTEL
+
+int range fa0/21-24
+switchport mode access
+switchport access vlan 11
+
+int range gig0/1, fa0/1-6
+switchport mode trunk
+
+SPANNING TREE
+spanning-tree mode rapid-pvst
+spanning-tree vlan 11,12,21,22,31 root primary
+int range fa0/21-24
+spanning-tree portfast
+spanning-tree bpduguard enable
+
+Switch Security
+vtp mode client
+vtp domain NYHOTEL
+vtp password NYHOTEL
+
+int range fa0/23-24
+switchport mode access
+switchport access vlan 12
+
+SPANNING TREE
+spanning-tree mode rapid-pvst
+spanning-tree vlan 11,12,21,22,31 root secondary
+int range fa0/23-24
+spanning-tree bpduguard enable
+spanning-tree portfast
+
+Switch Igazgatosag
+vtp mode client
+vtp domain NYHOTEL
+vtp password NYHOTEL
+
+int range fa0/22-24
+switchport mode access
+switchport access vlan 22
+
+SPANNING TREE
+spanning-tree mode rapid-pvst
+int range fa0/23-24
+spanning-tree portfast
+spanning-tree bpduguard enable
+
+Switch Szobak1
+vtp mode client
+vtp domain NYHOTEL
+vtp password NYHOTEL
+
+int fa0/24
+switchport mode access
+switchport access vlan 21
+
+SPANNING TREE
+spanning-tree mode rapid-pvst
+int fa0/24
+spanning-tree bpduguard enable
+
+Switch Szobak2
+vtp mode client
+vtp domain NYHOTEL
+vtp password NYHOTEL
+
+int fa0/24
+switchport mode access
+switchport access vlan 31
+
+SPANNING TREE
+spanning-tree mode rapid-pvst
+int fa0/24
+spanning-tree bpduguard enable
+
+
+Router NewYorkHotel
+int gig0/0.11
+encapsulation dot1q 11
+ip add 172.16.0.81 255.255.255.248
+
+int gig0/0.12
+encapsulation dot1q 12
+ip add 172.16.0.89 255.255.255.248
+
+int gig0/0.21
+encapsulation dot1q 21
+ip add 172.16.0.1 255.255.255.224
+
+int gig0/0.22
+encapsulation dot1q 22
+ip add 172.16.0.65 255.255.255.248
+
+int gig0/0.31
+encapsulation dot1q 31
+ip add 172.16.0.33 255.255.255.224
+
+int gig0/0
+no sh
