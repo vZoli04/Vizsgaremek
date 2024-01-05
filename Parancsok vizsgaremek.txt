@@ -16,7 +16,14 @@ encap dot1q 30
 ip add 192.168.31.193 255.255.255.248
 
 OSPF
-????
+router ospf 1
+router-id 3.3.3.3
+passive-interface gig0/0
+network 192.168.31.0 0.0.0.127 area 0
+network 192.168.31.128 0.0.0.63 area 0
+network 192.168.31.192 0.0.0.7 area 0
+network 100.100.100.12 0.0.0.3 area 0
+network 100.100.100.20 0.0.0.3 area 0
 
 EBED_S switch
 vlan 10
@@ -234,9 +241,9 @@ int port-channel 2
 switchport mode trunk
 
 PORTVÉDELEM
-int range f0/5-22, gig0/1-2
+int range f0/7-21, gig0/1-2
 sh
-int range f0/1-4, f0/23-24
+int range f0/1-6, f0/22-24 ?
 switchport port-security mac-address sticky
 switchport port-security violation restrict
 switchport port-security maximum 1
@@ -267,6 +274,14 @@ channel-group 3 mode desirable
 int port-channel 3
 switchport mode trunk
 
+PORTVÉDELEM
+int range f0/5-23, gig0/1-2
+sh
+int range f0/1-4, f0/24 ?
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+switchport port-security maximum 1
+
 
 SWITCH Szobak2
 vtp mode client
@@ -293,6 +308,14 @@ channel-group 6 mode desirable
 int port-channel 6
 switchport mode trunk
 
+PORTVÉDELEM
+int range f0/5-23, gig0/1-2
+sh
+int range f0/1-4, f0/24 ?
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+switchport port-security maximum 1
+
 
 Router NewYorkHotel
 int gig0/0.11
@@ -318,19 +341,49 @@ ip add 172.16.0.33 255.255.255.224
 int gig0/0
 no sh
 
+OSPF
+router ospf 1
+router-id 2.2.2.2
+passive-inerface gig0/0
+passive-inerface gig0/0.11
+passive-inerface gig0/0.12
+passive-inerface gig0/0.21
+passive-inerface gig0/0.22
+passive-inerface gig0/0.31
+network 172.16.0.0 0.0.0.31 area 0
+network 172.16.0.32 0.0.0.31 area 0
+network 172.16.0.64 0.0.0.7 area 0
+network 172.16.0.80 0.0.0.7 area 0
+network 172.16.0.88 0.0.0.7 area 0
+network 100.100.100.28 0.0.0.3 area 0
+network 100.100.100.20 0.0.0.3 area 0
+
 Üzemeltetők router
 
 Static route
 ip route 0.0.0.0 0.0.0.0 gig0/0/0
 
 OSPF
-????
-
+router ospf 1
+router-id 1.1.1.1
+passive-inerface gig0/0
+passive-inerface gig0/0/0
+network 192.168.1.0 0.0.0.255 area 0
+network 100.100.100.28 0.0.0.3 area 0
+network 100.100.100.16 0.0.0.3 area 0
+network 100.100.100.20 0.0.0.3 area 0
 
 Laguna Motel router
 
 OSPF
-????
+router ospf 1
+router-id 4.4.4.4
+passive-interface gig0/0
+passive-interface gig0/1
+network 192.168.54.40 0.0.0.3 area 0
+network 192.168.54.32 0.0.0.7 area 0
+network 100.100.100.16 0.0.0.3 area 0
+network 100.100.100.12 0.0.0.3 area 0
 
 
 Home router
