@@ -15,6 +15,9 @@ int gig0/0.30
 encap dot1q 30
 ip add 192.168.31.193 255.255.255.248
 
+OSPF
+????
+
 EBED_S switch
 vlan 10
 name EBEDLO
@@ -33,7 +36,7 @@ vtp domain kavezo
 vtp password kave123
 vtp version 2
 
-Portvédelem
+PORTVÉDELEM
 int range f0/5-24
 sh
 int range gig0/1-2, f0/1-4
@@ -41,7 +44,7 @@ switchport port-security mac-address sticky
 switchport port-security violation restrict
 switchport port-security maximum 1
 
-Portösszekötés
+PORTÖSSZEFOGÁS
 int range f0/1-2
 channel-group 1 mode desirable
 
@@ -69,7 +72,7 @@ int range fa0/3-4, fa0/24
 sw mode acc
 sw acc vlan 30
 
-Portvédelem
+PORTVÉDELEM
 int range f0/7-23
 sh
 int range f0/1-6, f0/24
@@ -77,7 +80,7 @@ switchport port-security mac-address sticky
 switchport port-security violation restrict
 switchport port-security maximum 1
 
-Portösszekötés
+PORTÖSSZEFOGÁS
 int range f0/1-2
 channel-group 1 mode desirable
 int range f0/5-6
@@ -104,7 +107,7 @@ int range fa0/2
 sw mode acc
 sw acc vlan 20
 
-Portvédelem
+PORTVÉDELEM
 int range f0/1, f0/7-24, gig0/1
 sh
 int range f0/2-6, gig0/2
@@ -112,7 +115,7 @@ switchport port-security mac-address sticky
 switchport port-security violation restrict
 switchport port-security maximum 1
 
-Portösszekötés
+PORTÖSSZEFOGÁS
 int range f0/3-4
 channel-group 2 mode desirable
 int range f0/5-6
@@ -126,7 +129,7 @@ spanning-tree bpduguard enable
 
 NEW YORK HOTEL
 
-Switch Recepcio
+SWITCH Recepcio
 
 VLANOK
 vlan 11
@@ -158,7 +161,32 @@ int range fa0/21-24
 spanning-tree portfast
 spanning-tree bpduguard enable
 
-Switch Security
+PORTÖSSZEFOGÁS
+int range fa0/1-2
+channel-group 1 mode desirable
+int port-channel 1
+switchport mode trunk
+
+int range fa0/5-6
+channel-group 2 mode desirable
+int port-channel 2
+switchport mode trunk
+
+int range fa0/3-4
+channel-group 3 mode desirable
+int port-channel 3
+switchport mode trunk
+
+PORTVÉDELEM
+int range f0/7-20, gig0/2
+sh
+int range gig0/1, f0/1-6, f0/21-24
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+switchport port-security maximum 1
+
+
+SWITCH SECURITY
 vtp mode client
 vtp domain NYHOTEL
 vtp password NYHOTEL
@@ -174,7 +202,7 @@ int range fa0/23-24
 spanning-tree bpduguard enable
 spanning-tree portfast
 
-Switch Igazgatosag
+SWITCH IGAZGATOSAG
 vtp mode client
 vtp domain NYHOTEL
 vtp password NYHOTEL
@@ -189,7 +217,32 @@ int range fa0/23-24
 spanning-tree portfast
 spanning-tree bpduguard enable
 
-Switch Szobak1
+PORTÖSSZEFOGÁS
+int range fa0/1-2
+channel-group 6 mode desirable
+int port-channel 6
+switchport mode trunk
+
+int range fa0/3-4
+channel-group 4 mode desirable
+int port-channel 4
+switchport mode trunk
+
+int range fa0/5-6
+channel-group 2 mode desirable
+int port-channel 2
+switchport mode trunk
+
+PORTVÉDELEM
+int range f0/5-22, gig0/1-2
+sh
+int range f0/1-4, f0/23-24
+switchport port-security mac-address sticky
+switchport port-security violation restrict
+switchport port-security maximum 1
+
+
+SWITCH Szobak1
 vtp mode client
 vtp domain NYHOTEL
 vtp password NYHOTEL
@@ -203,7 +256,19 @@ spanning-tree mode rapid-pvst
 int fa0/24
 spanning-tree bpduguard enable
 
-Switch Szobak2
+PORTÖSSZEFOGÁS
+int range fa0/1-2
+channel-group 5 mode desirable
+int port-channel 5
+switchport mode trunk
+
+int range fa0/3-4
+channel-group 3 mode desirable
+int port-channel 3
+switchport mode trunk
+
+
+SWITCH Szobak2
 vtp mode client
 vtp domain NYHOTEL
 vtp password NYHOTEL
@@ -216,6 +281,17 @@ SPANNING TREE
 spanning-tree mode rapid-pvst
 int fa0/24
 spanning-tree bpduguard enable
+
+PORTÖSSZEFOGÁS
+int range fa0/1-2
+channel-group 5 mode desirable
+int port-channel 5
+switchport mode trunk
+
+int range fa0/3-4
+channel-group 6 mode desirable
+int port-channel 6
+switchport mode trunk
 
 
 Router NewYorkHotel
@@ -241,3 +317,30 @@ ip add 172.16.0.33 255.255.255.224
 
 int gig0/0
 no sh
+
+Üzemeltetők router
+
+Static route
+ip route 0.0.0.0 0.0.0.0 gig0/0/0
+
+OSPF
+????
+
+
+Laguna Motel router
+
+OSPF
+????
+
+
+Home router
+
+Static route
+ip route 0.0.0.0 0.0.0.0 gig0/0/0
+
+
+ISP router
+
+Static route
+ip route 0.0.0.0 0.0.0.0 gig0/0/0
+ip route 100.100.100.8 255.255.255.252 100.100.100.10
