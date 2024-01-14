@@ -1,3 +1,4 @@
+
 Kávézó router
 
 EBEDLO vlan
@@ -145,9 +146,10 @@ int range gig0/2, f0/2
 spanning-tree portfast
 spanning-tree bpduguard enable
 
+
 NEW YORK HOTEL
 
-SWITCH Recepcio
+SWITCH RECEPCIO
 
 VLANOK
 vlan 11
@@ -205,6 +207,7 @@ switchport port-security maximum 1
 
 
 SWITCH SECURITY
+
 vtp mode client
 vtp domain NYHOTEL
 vtp password NYHOTEL
@@ -261,6 +264,7 @@ switchport port-security maximum 1
 
 
 SWITCH Szobak1
+
 vtp mode client
 vtp domain NYHOTEL
 vtp password NYHOTEL
@@ -294,7 +298,9 @@ switchport port-security violation restrict
 switchport port-security maximum 1
 
 
+
 SWITCH Szobak2
+
 vtp mode client
 vtp domain NYHOTEL
 vtp password NYHOTEL
@@ -328,7 +334,26 @@ switchport port-security violation restrict
 switchport port-security maximum 1
 
 
+
+Üzemeltetők router
+
+Static route
+ip route 0.0.0.0 0.0.0.0 gig0/0/0
+
+OSPF
+router ospf 1
+router-id 1.1.1.1
+passive-interface gig0/0
+passive-interface gig0/0/0
+network 192.168.1.0 0.0.0.255 area 0
+network 100.100.100.28 0.0.0.3 area 0
+network 100.100.100.16 0.0.0.3 area 0
+network 100.100.100.20 0.0.0.3 area 0
+
+
+
 Router NewYorkHotel
+
 int gig0/0.11
 encapsulation dot1q 11
 ip add 172.16.0.81 255.255.255.248
@@ -355,12 +380,12 @@ no sh
 OSPF
 router ospf 1
 router-id 2.2.2.2
-passive-inerface gig0/0
-passive-inerface gig0/0.11
-passive-inerface gig0/0.12
-passive-inerface gig0/0.21
-passive-inerface gig0/0.22
-passive-inerface gig0/0.31
+passive-interface gig0/0
+passive-interface gig0/0.11
+passive-interface gig0/0.12
+passive-interface gig0/0.21
+passive-interface gig0/0.22
+passive-interface gig0/0.31
 network 172.16.0.0 0.0.0.31 area 0
 network 172.16.0.32 0.0.0.31 area 0
 network 172.16.0.64 0.0.0.7 area 0
@@ -369,6 +394,7 @@ network 172.16.0.88 0.0.0.7 area 0
 network 100.100.100.28 0.0.0.3 area 0
 network 100.100.100.20 0.0.0.3 area 0
 
+<<<<<<< HEAD
 PPP
 int se0/0/0
 encapsulation ppp
@@ -382,18 +408,33 @@ username Kavezo password Kavezo123
 
 Üzemeltetők router
 
-Static route
-ip route 0.0.0.0 0.0.0.0 gig0/0/0
+Kávézó router
+
+EBEDLO vlan
+int gig0/0.10
+encap dot1q 10
+ip add 192.168.31.1 255.255.255.128
+
+BAR vlan
+int gig0/0.20
+encap dot1q 20
+ip add 192.168.31.129 255.255.255.192
+
+IRODA vlan
+int gig0/0.30
+encap dot1q 30
+ip add 192.168.31.193 255.255.255.248
 
 OSPF
 router ospf 1
-router-id 1.1.1.1
-passive-inerface gig0/0
-passive-inerface gig0/0/0
-network 192.168.1.0 0.0.0.255 area 0
-network 100.100.100.28 0.0.0.3 area 0
-network 100.100.100.16 0.0.0.3 area 0
+router-id 3.3.3.3
+passive-interface gig0/0
+network 192.168.31.0 0.0.0.127 area 0
+network 192.168.31.128 0.0.0.63 area 0
+network 192.168.31.192 0.0.0.7 area 0
+network 100.100.100.12 0.0.0.3 area 0
 network 100.100.100.20 0.0.0.3 area 0
+
 
 PPP
 int se0/1/0
@@ -405,6 +446,7 @@ ppp authentication chap
 exit
 username Laguna password Laguna123
 username NewYork password NewYork123
+
 
 Laguna Motel router
 
@@ -418,6 +460,7 @@ network 192.168.54.32 0.0.0.7 area 0
 network 100.100.100.16 0.0.0.3 area 0
 network 100.100.100.12 0.0.0.3 area 0
 
+
 PPP
 int se0/0/0
 encapsulation ppp
@@ -429,6 +472,7 @@ exit
 username Uzemeltetok password Uzemeltetok123
 username Kavezo password Kavezo123
 
+
 Home router
 
 Static route
@@ -436,6 +480,18 @@ ip route 0.0.0.0 0.0.0.0 gig0/0/0
 
 
 ISP router
+
+Hostname
+hostname ISP_R
+
+Interface GIG0/0
+ip address 100.100.100.1 255.255.255.248
+
+Interface GIG0/0/0
+ip address 100.100.100.25 255.255.255.252
+
+Interface GIG0/1/0
+ip address 100.100.100.9 255.255.255.252
 
 Static route
 ip route 0.0.0.0 0.0.0.0 gig0/0/0
