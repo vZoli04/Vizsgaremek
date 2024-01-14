@@ -25,6 +25,17 @@ network 192.168.31.192 0.0.0.7 area 0
 network 100.100.100.12 0.0.0.3 area 0
 network 100.100.100.20 0.0.0.3 area 0
 
+PPP
+int se0/0/0
+encapsulation ppp
+ppp authentication chap
+int se0/0/1
+encapsulation ppp
+ppp authentication chap
+exit
+username Laguna password Laguna123
+username NewYork password NewYork123
+
 EBED_S switch
 vlan 10
 name EBEDLO
@@ -358,6 +369,17 @@ network 172.16.0.88 0.0.0.7 area 0
 network 100.100.100.28 0.0.0.3 area 0
 network 100.100.100.20 0.0.0.3 area 0
 
+PPP
+int se0/0/0
+encapsulation ppp
+ppp authentication chap
+int se0/0/1
+encapsulation ppp
+ppp authentication chap
+exit
+username Uzemeltetok password Uzemeltetok123
+username Kavezo password Kavezo123
+
 Üzemeltetők router
 
 Static route
@@ -373,6 +395,17 @@ network 100.100.100.28 0.0.0.3 area 0
 network 100.100.100.16 0.0.0.3 area 0
 network 100.100.100.20 0.0.0.3 area 0
 
+PPP
+int se0/1/0
+encapsulation ppp
+ppp authentication chap
+int se0/1/1
+encapsulation ppp
+ppp authentication chap
+exit
+username Laguna password Laguna123
+username NewYork password NewYork123
+
 Laguna Motel router
 
 OSPF
@@ -385,6 +418,16 @@ network 192.168.54.32 0.0.0.7 area 0
 network 100.100.100.16 0.0.0.3 area 0
 network 100.100.100.12 0.0.0.3 area 0
 
+PPP
+int se0/0/0
+encapsulation ppp
+ppp authentication chap
+int se0/0/1
+encapsulation ppp
+ppp authentication chap
+exit
+username Uzemeltetok password Uzemeltetok123
+username Kavezo password Kavezo123
 
 Home router
 
