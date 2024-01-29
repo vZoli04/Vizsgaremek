@@ -212,14 +212,14 @@ vtp mode client
 vtp domain NYHOTEL
 vtp password NYHOTEL
 
-int range fa0/23-24
+int range fa0/22-24
 switchport mode access
 switchport access vlan 12
 
 SPANNING TREE
 spanning-tree mode rapid-pvst
 spanning-tree vlan 11,12,21,22,31 root secondary
-int range fa0/23-24
+int range fa0/22-24
 spanning-tree bpduguard enable
 spanning-tree portfast
 
@@ -394,7 +394,7 @@ network 172.16.0.88 0.0.0.7 area 0
 network 100.100.100.28 0.0.0.3 area 0
 network 100.100.100.20 0.0.0.3 area 0
 
-<<<<<<< HEAD
+
 PPP
 int se0/0/0
 encapsulation ppp
@@ -406,7 +406,6 @@ exit
 username Uzemeltetok password Uzemeltetok123
 username Kavezo password Kavezo123
 
-Üzemeltetők router
 
 Kávézó router
 
