@@ -345,7 +345,7 @@ router ospf 1
 router-id 1.1.1.1
 passive-interface gig0/0
 passive-interface gig0/0/0
-network 192.168.1.0 0.0.0.255 area 0
+network 35.125.55.0 0.0.0.127 area 0
 network 100.100.100.28 0.0.0.3 area 0
 network 100.100.100.16 0.0.0.3 area 0
 network 100.100.100.20 0.0.0.3 area 0
