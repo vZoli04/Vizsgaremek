@@ -1,0 +1,29 @@
+2. rétegbeli beállítások:
+vlan - vanyeg - rövid
+vtp - vanyeg
+portsecurity - márk
+etherchennel - márk
+spanning-tree - zoli
+
+3.réteg
+soho - zoli
+dhcp - zoli
+ssh - vanyeg
+ntp - vanyeg
+syslog - vanyeg
+hsrp - márk
+ppp - márk
+ospf - zoli
+gre - zoli
+acl - márk
+pat - márk
+ipv6 - vanyeg
+
+szerverek:
+zöld - Zoli
+sárga - Márk
+hupikék - Máté
+
+vanyeg: 6
+márk: 6
+zoli: 5
